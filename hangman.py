@@ -1,10 +1,12 @@
 #hangman.py
-#run directly through this file to play Hangman
+# stanalone file to play hangman
 
+# import module
 from words import words
 import random
 import string
 
+# hangman picture
 hangman_pic = ['''
    +---+
        |
@@ -85,4 +87,4 @@ def Hangman():
     else:
         print(f"Congrats! The answer is '{word}'")
 
-# Hangman()
+Hangman()

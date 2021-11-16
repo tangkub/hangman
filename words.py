@@ -1,4 +1,5 @@
 #words.py
+# words to play hangman
 
 words = ["aback",
 "abaft",

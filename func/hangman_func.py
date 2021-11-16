@@ -1,10 +1,12 @@
 #hangman_func.py
-#function to integrate with GUI for Hangman
+# function to integrate with GUI for Hangman
 
+# module
 from words import words
 import random
 import string
 
+# hangman picture
 hangman_pic = ['''
    +---+
        |
@@ -42,7 +44,7 @@ hangman_pic = ['''
    / \  |
       ===''']
 
-
+# return value with initial state
 def StartGame():
     # create letter, used_letter and last_chr dict
     letters = {}
@@ -69,7 +71,7 @@ def StartGame():
 
     return letters, used_letters, lp, last_chr
 
-
+# return value after guessing
 def PlayGame(letters_guess_param, letters_param, used_letters_param, lp_param):
     # get date for checking later
     letters_guess = letters_guess_param.upper()
@@ -88,11 +90,12 @@ def PlayGame(letters_guess_param, letters_param, used_letters_param, lp_param):
     # new letters
     elif letters_guess in alphabet - used_letters_set:
         used_letters_set.add(letters_guess) # add new letters
-        # check the answer
+        # right awnser
         if letters_guess in letters_set:
             letters_set.remove(letters_guess)
             last_chr["character"] = letters_guess
             last_chr["check"] = "Correct"
+        # wrong awnser
         else:
             last_chr["character"] = letters_guess
             last_chr["check"] = "Miss"
@@ -102,6 +105,7 @@ def PlayGame(letters_guess_param, letters_param, used_letters_param, lp_param):
         last_chr["character"] = letters_guess
         last_chr["check"] = "Invalid character"
 
+    # update letters and used_letters for displaying
     letters["gui"] = [letter if letter in used_letters_set else "-" for letter in letters["playgame_str"]]
     used_letters["gui"] = " ".join(sorted(used_letters_set))
 
@@ -115,21 +119,3 @@ def PlayGame(letters_guess_param, letters_param, used_letters_param, lp_param):
         return letters, used_letters, lp, last_chr
 
     return letters, used_letters, lp, last_chr
-
-# letters, used_letters, lp, last_chr = StartGame()
-# print(letters)
-# print(used_letters)
-# print(lp)
-# print(hangman_pic[6-lp])
-# print("===========================")
-# letters, used_letters, lp, last_chr = PlayGame(letters_guess="a", letters=letters, used_letters=used_letters, lp=lp)
-# print(letters)
-# print(used_letters)
-# print(lp)
-# print(last_chr)
-# print("===========================")
-# letters, used_letters, lp, last_chr = PlayGame(letters_guess="e", letters=letters, used_letters=used_letters, lp=lp)
-# print(letters)
-# print(used_letters)
-# print(lp)
-# print(last_chr)
