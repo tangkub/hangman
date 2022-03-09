@@ -1,12 +1,12 @@
 #hangman.py
-# stanalone file to play hangman
+# Stanalone file to play hangman
 
-# import module
+# Import module
 from words import words
 import random
 import string
 
-# hangman picture
+# Hangman picture
 hangman_pic = ['''
    +---+
        |
@@ -46,12 +46,14 @@ hangman_pic = ['''
 
 # Function: Hangman
 def Hangman():
-    word = random.choice(words).upper() # get word from words
-    letters = set(word) # get letters from word
+    # Set up game
+    word = random.choice(words).upper() # get a word from words.py
+    letters = set(word) # get letter from word
     alphabet = set(string.ascii_uppercase) # get all alphabet
     used_letters = set() # letters user has guessed
     lp = 0 # set up the life point
 
+    # Game start
     while len(letters) > 0 and lp < 6:
         print("==============================================")
         print(hangman_pic[lp]) # show hangman picture
@@ -61,30 +63,31 @@ def Hangman():
         print("The answer: ", " ".join(word_list)) # show letters of answer
 
         letters_guess = input("Let's guess a letter!: ").upper() # get input letters
-        # user has guess letters
+        # User has guess letters
         if letters_guess in used_letters:
             print(f'This "{letters_guess}" character has been used.')
-        # new letters
+        # New letters
         elif letters_guess in alphabet - used_letters:
             used_letters.add(letters_guess) # add new letters
-            # check the answer
+            # Check the answer
             if letters_guess in letters:
                 letters.remove(letters_guess)
                 print('Correct.')
             else:
                 print('Miss.')
                 lp+=1
-        # not alphabet
+        # Not alphabet
         else:
             print("Invalid character.")
 
-    # you die
+    # You die
     if lp == 6:
         print("==============================================")
         print(hangman_pic[lp])
         print(f"You lose. The answer is '{word}'")
-    # you win
+    # You win
     else:
         print(f"Congrats! The answer is '{word}'")
 
+# Run function
 Hangman()

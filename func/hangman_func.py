@@ -1,12 +1,12 @@
 #hangman_func.py
-# function to integrate with GUI for Hangman
+# Function to integrate with GUI for Hangman
 
-# module
+# Module
 from words import words
 import random
 import string
 
-# hangman picture
+# Hangman picture
 hangman_pic = ['''
    +---+
        |
@@ -44,23 +44,23 @@ hangman_pic = ['''
    / \  |
       ===''']
 
-# return value with initial state
+# Return value with initial state
 def StartGame():
-    # create letter, used_letter and last_chr dict
+    # Create letter, used_letter and last_chr dict
     letters = {}
     used_letters = {}
     last_chr = {}
 
-    # get word and its length
+    # Get word and its length
     word = random.choice(words).upper()
     word_len = len(word)
 
-    # initiate letters
+    # Initialize letters
     letters["gui"] = " ".join(["-" for i in range(word_len)])
     letters["playgame_str"] = word
     letters["playgame_set"] = set(word)
 
-    # initiate used_letters
+    # Initialize used_letters
     used_letters["gui"] = "" # letters user has guessed
     used_letters["playgame_str"] = ""
     used_letters["playgame_set"] = set()
@@ -71,9 +71,9 @@ def StartGame():
 
     return letters, used_letters, lp, last_chr
 
-# return value after guessing
+# Return value after guessing
 def PlayGame(letters_guess_param, letters_param, used_letters_param, lp_param):
-    # get date for checking later
+    # Get data for checking later
     letters_guess = letters_guess_param.upper()
     letters = letters_param
     letters_set = letters["playgame_set"]
@@ -83,37 +83,37 @@ def PlayGame(letters_guess_param, letters_param, used_letters_param, lp_param):
     last_chr = {}
     alphabet = set(string.ascii_uppercase)
 
-    # user has guess letters
+    # User has guess letters
     if letters_guess in used_letters_set:
         last_chr["character"] = letters_guess
         last_chr["check"] = "Repeat"
-    # new letters
+    # New letters
     elif letters_guess in alphabet - used_letters_set:
         used_letters_set.add(letters_guess) # add new letters
-        # right awnser
+        # Right awnser
         if letters_guess in letters_set:
             letters_set.remove(letters_guess)
             last_chr["character"] = letters_guess
             last_chr["check"] = "Correct"
-        # wrong awnser
+        # Wrong awnser
         else:
             last_chr["character"] = letters_guess
             last_chr["check"] = "Miss"
             lp = lp - 1
-    # not alphabet
+    # Not alphabet
     else:
         last_chr["character"] = letters_guess
         last_chr["check"] = "Invalid character"
 
-    # update letters and used_letters for displaying
+    # Update letters and used_letters for displaying
     letters["gui"] = [letter if letter in used_letters_set else "-" for letter in letters["playgame_str"]]
     used_letters["gui"] = " ".join(sorted(used_letters_set))
 
-    # you die
+    # You die
     if lp == 0:
         last_chr["check"] = "LOSE"
         return letters, used_letters, lp, last_chr
-    # you win
+    # You win
     if len(letters_set) == 0:
         last_chr["check"] = "WIN"
         return letters, used_letters, lp, last_chr
