@@ -1,4 +1,4 @@
-# Hangman project
+# Hangman Project
 
 ## Description
 This project is developed for learning and practicing Python.\
@@ -23,7 +23,7 @@ For **GUI hangman**
 python gui.py
 ```
 
-## Key Learning points
+## Key Learning
 - Import file or own function from another folder
 - Usage of random.choice
 - Concat string with delimiter by using .join
